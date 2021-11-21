@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // provider = "postgresql"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Feedback {
+  id String @id @default(uuid()) // @id -> primary key
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name String // By default, these fields are all required
+  email String? // question mark makes this field optional
+  message String
+  feedbackType FeedbackType @default(FEEDBACK)
+}
+
+enum FeedbackType {
+  FEEDBACK
+  ISSUE
+  IDEA
+}
